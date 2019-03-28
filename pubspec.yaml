@@ -1,0 +1,52 @@
+name: hizhu_app
+description: A new Flutter application.
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^0.1.2
+  dio: 2.1.0
+  shrine_images: 1.1.1
+  flutter_webview_plugin: 0.3.1
+  flutter_sticky_header: "^0.3.4"
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/images/loginLogo.png
+    - assets/images/blueLogo.png
+    - assets/images/banner.png
+    - assets/images/search.png
+    - assets/images/icon_rent.png
+    - assets/images/icon_share_rent.png
+    - assets/images/icon_apartment.png
+    - assets/images/icon_house.png
+    - assets/images/icon_video_house.png
+    - assets/images/icon_lazy_house.png
+    - assets/images/icon_hizhu_meijia.png
+    - assets/images/list_img.png
+    - assets/images/avatar2.png
+    - assets/images/nav_close.png
+    - assets/images/publish_chat_box.png
+    - assets/images/publish_work_line.png
+    - assets/images/publish_work_sign.png
+    - assets/images/share_qq.png
+    - assets/images/share_wechat.png
+  fonts:
+    - family: HizhuIcon
+      fonts:
+        - asset: assets/fonts/hizhu.ttf
+          weight: 100
