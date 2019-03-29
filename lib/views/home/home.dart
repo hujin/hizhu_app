@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../portal.dart' as Demo;
 import '../portal/portal.dart';
 import '../findRenter.dart';
-import '../notice.dart';
+import '../notice/notice.dart';
 import '../mine.dart';
 import '../../components/hizhuIcon.dart';
 
@@ -23,7 +24,7 @@ class _HomePageState extends State<HomePage>{
   ];
 
   List _pageList = [
-    PortalPage(),
+    Demo.Portal(),
     FindRenter(),
     Notice(),
     Mine()

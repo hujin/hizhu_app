@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './portal.dart';
 
 double boxsize = 80.0;
 
