@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_sticky_header/flutter_sticky_header.dart';
 
@@ -14,6 +15,14 @@ class _PortalPageState extends State<PortalPage>{
   ScrollController controller = ScrollController();
   bool isShowSearch = false;
   bool isShowSearchPanel = true;
+
+  List firstList = ['不限', '附近', '商圈', '地铁'];
+  List nearbyList = ['500米', '1千米', '2千米', '3千米'];
+  List businessList = ['滨江', '淳安', '富阳', '拱墅', '建德', '江干', '临安', '上城', '桐庐', '下城', '西湖', '下沙', '萧山', '余杭'];
+  List areaList = [Container()];
+  int firstCurrent = 0, businessCurrent = 0;
+
+
   @override
   void initState(){
     super.initState();
@@ -31,6 +40,10 @@ class _PortalPageState extends State<PortalPage>{
         });
       }
     });
+
+    areaList.add(_nearby(nearbyList));
+    areaList.add(_business());
+    areaList.add(Container(child: Text('地铁'),));
   }
 
   @override
@@ -96,19 +109,89 @@ class _PortalPageState extends State<PortalPage>{
     );
   }
 
+  Widget _nearby(List list){
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (BuildContext context, int index){
+        return GestureDetector(
+          onTap: (){
+            print(list[index]);
+          },
+          child: Container(
+            margin: EdgeInsets.only(left: 15),
+            decoration: BoxDecoration(
+              border: Border(bottom: BorderSide(width: 1, color: Color.fromRGBO(247, 247, 247, 1))),
+            ),
+            height: 40,
+            alignment: Alignment.centerLeft,
+            width: double.infinity,
+            child: Text(list[index]),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _business(){
+    return Row(
+      children: <Widget>[
+        Container(
+          width: 100,
+          child: _businessList(businessList),
+          color: Color.fromRGBO(250, 250, 250, 1),
+        )
+      ],
+    );
+  }
+
+  Widget _businessList(List list){
+    return ListView.builder(
+      itemCount: list.length,
+      itemBuilder: (BuildContext context, int index){
+        return GestureDetector(
+          onTap: (){
+            setState(() {
+              businessCurrent = index;
+            });
+          },
+          child: Container(
+            padding: EdgeInsets.only(left: 15),
+            alignment: Alignment.centerLeft,
+            width: double.infinity,
+            height: 40,
+            child: Text(
+              list[index],
+              style: TextStyle(color: (businessCurrent == index) ? Color(0xff4FCBFF) : Colors.black),
+            ),
+            color: (businessCurrent == index) ? Colors.white : Colors.transparent,
+          ),
+        );
+      },
+    );
+  }
 
   Widget _stickHeader(){
+    var height = MediaQueryData.fromWindow(window).size.height;
+    var width = MediaQueryData.fromWindow(window).size.width;
+    var toolbarHeight =  MediaQueryData.fromWindow(window).padding.top;
+    var h = height - toolbarHeight - 56 - 44;
+
     return SliverStickyHeader(
       header: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          boxShadow: [BoxShadow(color:Color.fromRGBO(299, 299, 299, 0.08),offset: Offset(0, 1),blurRadius:1)],
+//          boxShadow: [BoxShadow(color:Color.fromRGBO(299, 299, 299, 0.08),offset: Offset(0, 1),blurRadius:1)],
         ),
 //        height: 44,
         child:Column(
           children: <Widget>[
             Container(
               height: 44,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                border: Border(bottom: BorderSide(width: 1, color: Color.fromRGBO(247, 247, 247, 1))),
+//              boxShadow: [BoxShadow(color:Color.fromRGBO(299, 299, 299, 0.08),offset: Offset(0, 1),blurRadius:0)],
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
@@ -133,9 +216,52 @@ class _PortalPageState extends State<PortalPage>{
             Offstage(
               offstage: isShowSearchPanel,
               child: Container(
-                height: MediaQuery.of(context).size.height - 44.0,
+                height: h,
                 width: double.infinity,
                 color: Colors.white10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                        color: Color.fromRGBO(247, 247, 247, 1),
+                        height: h,
+                        width: 100,
+                        child: ListView.builder(
+                          itemCount: 4,
+                          itemBuilder: (BuildContext context, int index){
+                            return GestureDetector(
+                              onTap: (){
+                                if(index == 0){
+                                  isShowSearchPanel = true;
+                                }
+                                setState(() {
+                                  firstCurrent = index;
+                                });
+                                print(firstCurrent);
+                              },
+                              child: Container(
+                                padding: EdgeInsets.only(left: 15),
+                                height: 40,
+                                width: double.infinity,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  firstList[index],
+                                  style: TextStyle(color: (firstCurrent == index && firstCurrent != 0) ? Color(0xff4FCBFF) : Colors.black),
+                                ),
+                                color: (firstCurrent == index && firstCurrent != 0) ? Colors.white : Colors.transparent,
+                              ),
+                            );
+                          },
+                        )
+                    ),
+                    Container(
+                      color: Colors.white,
+                      height: h,
+                      width: width - 100,
+                      child: areaList[firstCurrent],
+                    )
+                  ],
+                ),
               ),
             )
           ],
@@ -297,5 +423,6 @@ class _PortalPageState extends State<PortalPage>{
       ],
     );
   }
+
 
 }

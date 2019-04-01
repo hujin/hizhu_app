@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage>{
   ];
 
   List _pageList = [
-    Demo.Portal(),
+    PortalPage(),
     FindRenter(),
     Notice(),
     Mine()

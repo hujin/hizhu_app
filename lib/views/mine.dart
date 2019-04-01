@@ -12,8 +12,13 @@ class MineState extends State<Mine>{
     return Scaffold(
       appBar: AppBar(
       ),
-      body: Center(
-        child: Text('mine'),
+      body: Container(
+        child: FlatButton(
+            onPressed: (){
+              Navigator.pushNamed(context, '/login');
+            },
+            child: Text('login')
+        ),
       ),
     );
   }

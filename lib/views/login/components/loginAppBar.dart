@@ -15,7 +15,7 @@ class LoginAppBar extends StatelessWidget {
                 child: IconButton(
                   icon:Icon(Icons.arrow_back_ios,color: Colors.white),
                   onPressed: (){
-//                        Navigator.pop(context);
+                        Navigator.pop(context);
                   },
                 ),
               ),
